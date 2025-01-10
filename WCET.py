@@ -102,11 +102,11 @@ class config:
     def __show__(self):
         print("Model: {}".format(self.model))
         print("INS port: {}".format(self.ins_port_name))
-        print("INS port trace: {}".format(self.ins_port_trace))
+        # print("INS port trace: {}".format(self.ins_port_trace))
         print("Data0 port: {}".format(self.data0_port_name))
-        print("Data0 port trace: {}".format(self.data0_port_trace))
+        # print("Data0 port trace: {}".format(self.data0_port_trace))
         print("Data1 port: {}".format(self.data1_port_name))
-        print("Data1 port trace: {}".format(self.data1_port_trace))
+        # print("Data1 port trace: {}".format(self.data1_port_trace))
     
 def flattern(input:list[list]):
     if len(input) == 0:
@@ -160,16 +160,16 @@ class group_config:
             print("DPU {}:".format(self.dpu_vector[i].seq))
             self.dpu_vector[i].__show__()
             print()
-        print("IC1 Contention:")
-        for key,value in self.IC_1_counter.items():
-            print("{}: {}".format(key,value))
-        print()
-        print("IC2 Contention:")
-        for key,value in self.IC_2_counter.items():
-            print("{}: {}".format(key,value))
-        print()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-        print("PA Contention:")
-        print(self.PA_counter)
+        # print("IC1 Contention:")
+        # for key,value in self.IC_1_counter.items():
+        #     print("{}: {}".format(key,value))
+        # print()
+        # print("IC2 Contention:")
+        # for key,value in self.IC_2_counter.items():
+        #     print("{}: {}".format(key,value))
+        # print()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+        # print("PA Contention:")
+        # print(self.PA_counter)
         print()
 
 
@@ -408,20 +408,20 @@ DATA_TRANSFER_TIME = [1,1,1,2,1]
 # t_read^HP, t_write^HP, t_read^HPC, t_write^HPC, t_read^LPD_D, t_read^LPD_INS, t_write^LPD
 TRANSACTION_TRANSFER_TIME = [35,25,38,28,146,40,74]
 
-
+PORT_MAP = ["LPD","HPC0","HPC1","HP0","HP1","HP2","HP3"]
 
 # Current configuration
 ALL_CONNECTION:list[dict] = [
-    {"ins":"HP3","data_0":"HP0","data_1":"HP1","model":"yolov4"},
-    # {"ins":"LPD","data_0":"HP2","data_1":"HP3","model":"yolov4"},
-    # {"ins":"LPD","data_0":"HPC0","data_1":"HPC1","model":"mobilenetv2"},
+    {"ins":"LPD","data_0":"HP0","data_1":"HP1","model":"yolov4"},
+    {"ins":"LPD","data_0":"HP2","data_1":"HP3","model":"yolov4"},
+    {"ins":"LPD","data_0":"HPC0","data_1":"HPC1","model":"mobilenetv2"},
     ]
 
 
 if __name__ == "__main__":
 
     dpus = group_config(len(ALL_CONNECTION), TRANSACTION_PARAMETERS,TRANSACTION_TRANSFER_TIME, DATA_TRANSFER_TIME,ALL_CONNECTION)
-    # dpus.__show__()
+    dpus.__show__()
 
     # get T_BASE in seq
     for i in range(dpus.dpu_number):
